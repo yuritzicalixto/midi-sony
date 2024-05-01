@@ -2,24 +2,26 @@ function playSonido(idElementoAudio){
     document.querySelector(idElementoAudio).play();
 }
 const listaDeTeclas = document.querySelectorAll('.tecla');
-let contador = 0;
 
-// while mientras una condición sea verdadera, estará repitiendo una cierta cantidad de veces el código
-while (contador < 9){
+for(let contador = 0; contador < listaDeTeclas.length; contador++){
     const tecla=listaDeTeclas[contador];
     const instrumento = tecla.classList[1];
-    // console.log(instrumento)
 
     const idAudio = `#sonido_${instrumento}`;
-    console.log(idAudio)
+    // console.log(idAudio)
 
     tecla.onclick = function(){
         playSonido(idAudio);
     };
-    contador++;
-    // console.log('Vuelta ' + contador)
+    tecla.onkeydown = function( evento ){
+        // console.log(evento.code === 'Space')
+        if( evento.code === 'Space' || evento.code === 'Enter' ){
+            tecla.classList.add('activa');
+        }
+    }
+
+    
+    tecla.onkeyup = function(){
+        tecla.classList.remove('activa')
+    }
 }
-
-
-
-// document.querySelector('.tecla_pom').onclick = playSonidoPom;
